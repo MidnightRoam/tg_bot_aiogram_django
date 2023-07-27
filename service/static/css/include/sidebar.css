@@ -1,0 +1,26 @@
+.sidebar {
+    background-color: #2b2d31;
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.sidebar .header {
+    justify-self: center;
+    height: 100px;
+}
+
+.sidebar p, h1, a {
+    color: #b5bac1;
+}
+
+.sidebar .main .link {
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.sidebar .main .link:hover {
+    color: #fff;
+}

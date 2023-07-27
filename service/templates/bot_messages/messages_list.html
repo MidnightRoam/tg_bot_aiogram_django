@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/include/sidebar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% include 'include/sidebar.html' %}
+    <section class="content">
+    {% include 'include/dashboard-controls.html' %}
+        <section class="articles">
+            <article class="article__default bot__messages">
+                <h1>Последние сообщения бота</h1>
+            </article>
+            <article class="article__default popular__commands">
+                <h1>Самые популярные команды</h1>
+            </article>
+        </section>
+    </section>
+</div>
+{% endblock %}

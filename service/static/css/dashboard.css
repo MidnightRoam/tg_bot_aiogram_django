@@ -1,0 +1,51 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+}
+
+.dashboard .statistic {
+    display: flex;
+}
+
+.statistic .link {
+    background-color: #b5bac1;
+    margin: 5px;
+    width: 250px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    border: 2px solid #b5bac1;
+    color: #32343a;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.2s;
+}
+
+.statistic .link:hover {
+    background-color: #32343a;
+    border-color: #b5bac1;
+    color: #b5bac1;
+}
+
+.content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content .articles {
+    display: flex;
+    margin-left: 50px;
+}
+
+.content .article__default {
+    background-color: #b5bac1;
+    width: 40%;
+    height: 200px;
+    justify-self: left;
+    align-self: center;
+    margin: 5px;
+}
