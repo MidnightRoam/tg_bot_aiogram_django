@@ -1,16 +1,18 @@
 import os
+from typing import Dict
 
 import aiosqlite
+from aiosqlite import Cursor
 
 
-async def db_start():
+async def db_start() -> None:
     """
     Устанавливает соединение с базой данных и инициализирует глобальные переменные db и cur.
 
     """
     global db, cur
 
-    service_folder = os.path.dirname(os.path.dirname(os.path.abspath('service')))
+    service_folder = os.path.dirname(os.path.dirname(os.path.abspath('service/service')))
     db_filename = os.path.join(service_folder, "db.sqlite3")
     if os.path.exists(db_filename):
         db = await aiosqlite.connect(db_filename)
@@ -21,7 +23,7 @@ async def db_start():
         print(f'Database file "{db_filename}" not found.')
 
 
-async def get_bot_messages_db():
+async def get_bot_messages_db() -> Cursor:
     """
     Извлекает все сообщения из таблицы bot_messages_message в базе данных.
 
@@ -33,7 +35,7 @@ async def get_bot_messages_db():
     return messages
 
 
-async def save_bot_message_db(message):
+async def save_bot_message_db(message: Dict[str, any]) -> None:
     """
     Сохраняет сообщение бота в базу данных.
 

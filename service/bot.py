@@ -1,8 +1,14 @@
+import os
+import django
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'service.settings')
+django.setup()
+
 from aiogram import executor
 
-from service.tgbot.config import dp
-from service.tgbot.handlers import client
-from service.tgbot.database.sqlite import db_start
+from tgbot.config import dp
+from tgbot.handlers import client
+from tgbot.database.sqlite import db_start
 
 client.register_handlers_client(dp)
 

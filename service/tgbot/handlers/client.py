@@ -2,23 +2,14 @@ from datetime import datetime
 from random import randrange
 
 import requests
+import asyncio
 from aiogram import types, Dispatcher
+from asgiref.sync import sync_to_async
 
-from service.tgbot.config import OPEN_WEATHERMAP_TOKEN, NY_TIMES_API_TOKEN
-from service.tgbot.keyboards.reply_keyboards import get_default_keyboard
-from service.tgbot.database.sqlite import save_bot_message_db
-
-HELP_COMMANDS = """
-<strong>Поддерживаемые команды</strong>:
-/start - Запуск бота
-/help - Список команд
-/weather [город] - показать текущую погоду в выбранном городе
-/news - получить случайную новость 
-"""
-
-START_MESSAGE = """Привет! Бот выполняет функцию тестового задания,
-все зарегистрированные команды можно посмотреть через /help
-"""
+from bot_messages.models import Command
+from tgbot.config import OPEN_WEATHERMAP_TOKEN, NY_TIMES_API_TOKEN
+from tgbot.keyboards.reply_keyboards import get_default_keyboard
+from tgbot.database.sqlite import save_bot_message_db
 
 
 async def cmd_start(message: types.Message):
@@ -39,10 +30,13 @@ async def cmd_start(message: types.Message):
         Привет! Бот выполняет функцию тестового задания,
         все зарегистрированные команды можно посмотреть через /help
     """
+    # Берем текст команды из базы данных
+    command_text = await Command.get_command_text('/start')
     answer = await message.answer(
-        START_MESSAGE,
+        command_text,
         reply_markup=get_default_keyboard()
     )
+    # Сохраняем сообщение бота в базе данных
     await save_bot_message_db(answer)
     return answer
 
@@ -71,11 +65,14 @@ async def cmd_help(message: types.Message):
     Примечание:
         В ответе используется HTML-разметка для выделения заголовка жирным шрифтом.
     """
+    # Берем текст команды из базы данных
+    command_text = await Command.get_command_text('/start')
     answer = await message.answer(
-        HELP_COMMANDS,
+        command_text,
         parse_mode='HTML',
         reply_markup=get_default_keyboard()
     )
+    # Сохраняем сообщение бота в базе данных
     await save_bot_message_db(answer)
     return answer
 

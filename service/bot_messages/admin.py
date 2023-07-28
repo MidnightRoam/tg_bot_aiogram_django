@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-from .models import Message
+from .models import (
+    Message,
+    Command
+)
 
 
 @admin.register(Message)
@@ -18,3 +21,8 @@ class MessageAdmin(admin.ModelAdmin):
         в списке объектов модели.
     """
     list_display = ('id', 'to_whom', 'date')
+
+
+@admin.register(Command)
+class CommandAdmin(admin.ModelAdmin):
+    list_display = ('id', 'command', )
