@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/users.css' %}">
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block header %} {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="content">
+        <div class="auth__card br-radius-10">
+            <div class="card__header">
+                <a href="{% url 'login' %}" class="card__link">SIGN IN</a>
+                <a href="{% url 'registration' %}" class="card__link active">SIGN UP</a>
+            </div>
+            <div class="card__controls">
+                <form class="form__control" action="{% url 'registration' %}" method="post">
+                    {% csrf_token %}
+    <!--                {{ form }}-->
+                    <input type="" id="email" class="auth__input" placeholder="Username">
+                    <input type="" id="password1" class="auth__input" placeholder="Password">
+                    <input type="" id="password2" class="auth__input" placeholder="Repeat password">
+                    <button class="btn btn__auth" type="submit">SIGN IN</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

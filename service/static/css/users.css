@@ -1,0 +1,86 @@
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.auth__card {
+    background-color: #2b2d31;
+    width: 400px;
+    height: auto;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.auth__card .card__header {
+    margin: 0px 0px 50px 20px;
+}
+
+.auth__card .card__link {
+    font-size: 1.3em;
+    text-decoration: none;
+    color: #b5bac1;
+    font-weight: 600;
+    margin-right: 25px;
+}
+
+.auth__card .form__control {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__control .auth__input {
+    padding: 8px 8px 8px 20px;
+    margin-bottom: 15px;
+    border-radius: 50px;
+    border: none;
+    opacity: 0.3;
+    transition: 0.2s;
+}
+
+.form__control .auth__input:hover {
+    opacity: 1;
+}
+
+.form__control .auth__input:focus {
+    opacity: 1;
+}
+
+.form__control .box {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__control .box .form__label {
+    color: #fff;
+    margin: 0px 0px 5px 20px;
+    font-weight: 400;
+}
+
+.card__header .active {
+    color: #fff;
+    border-bottom: 2px solid #eec110;
+}
+
+.auth__card .form__control .input__label {
+    color: #9d8ea3;
+    font-weight: 600;
+    margin: 10px 0px 10px 20px;
+}
+
+.auth__card .btn__auth {
+    background-color: #eec110;
+    border-radius: 50px;
+    color: #fff;
+    font-weight: 600;
+    padding: 8px;
+    width: 150px;
+    align-self: center;
+    border: none;
+}
+

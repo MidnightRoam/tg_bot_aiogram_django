@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'bot_messages.apps.BotMessagesConfig',
-    'tgbot.apps.TgbotConfig'
+    'tgbot.apps.TgbotConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [

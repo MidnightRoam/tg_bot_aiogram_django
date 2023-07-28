@@ -59,10 +59,10 @@
     background-color: #b5bac1;
     width: 40%;
     height: 500px;
-    overflow: auto;
     justify-self: left;
     align-self: center;
     margin: 5px;
+    overflow: auto;
 }
 
 .content .article__default .title {
