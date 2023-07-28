@@ -49,3 +49,44 @@ class Command(models.Model):
             command_text = await Command.get_command_text('/start')
         """
         return cls.objects.get(command=command).text
+
+    def __str__(self):
+        return self.command
+
+
+class CommandLog(models.Model):
+    """
+    Модель для хранения информации о вызовах команд бота.
+
+    Поля модели:
+        command (models.ForeignKey): Внешний ключ для связи с моделью Command.
+                                     Определяет команду, которая была вызвана.
+        calls_count (models.PositiveIntegerField): Количество вызовов команды.
+                                                   Целое положительное число.
+                                                   Поле не редактируется пользователем (editable=False).
+
+    Методы:
+        log_command_call(command: str): Статический метод класса для логирования вызовов команды бота.
+                                        Принимает строку с именем команды (например, '/start').
+                                        Если команда существует в модели CommandLog, увеличивает счетчик вызовов на 1.
+                                        Если команда отсутствует, создает новую запись и устанавливает счетчик в 1.
+
+    Пример использования:
+        CommandLog.log_command_call('/start')
+    """
+    command = models.ForeignKey('Command', on_delete=models.SET_NULL, null=True)
+    calls_count = models.PositiveIntegerField(null=True, blank=True, default=0, editable=False)
+
+    @classmethod
+    @sync_to_async
+    def log_command_call(cls, command: str):
+        try:
+            command_obj = Command.objects.get(command=command)
+            command_log, created = cls.objects.get_or_create(command=command_obj)
+            if created:
+                command_log.calls_count = 1
+            else:
+                command_log.calls_count += 1
+            command_log.save()
+        except Command.DoesNotExist:
+            pass

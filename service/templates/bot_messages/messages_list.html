@@ -30,7 +30,14 @@
             </article>
             <article class="article__default popular__commands">
                 <h1 class="title">Самые популярные команды</h1>
-                <p class="text__content"></p>
+                <ul class="commands__ul">
+                    {% for command in popular_commands %}
+                    <ul class="command__ul">
+                        <li class="command_li command__title">{{ command.command }}</li>
+                        <li class="command_li calls__value">{{ command.calls_count }}</li>
+                    </ul>
+                    {% endfor %}
+                </ul>
             </article>
         </section>
     </section>

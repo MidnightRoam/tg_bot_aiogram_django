@@ -11,6 +11,10 @@
     height: 100px;
 }
 
+.sidebar .title {
+    font-size: 1em;
+}
+
 .sidebar p, h1, a {
     color: #b5bac1;
 }

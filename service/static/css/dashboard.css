@@ -80,3 +80,34 @@
     list-style-type: none;
     border-bottom: 2px solid grey;
 }
+
+.content .article__default .commands__ul {
+    border-top: 2px solid #32343a;
+    padding: 15px;
+    list-style-type: none;
+}
+
+.commands__ul .command__ul {
+    padding: 10px;
+    list-style-type: none;
+    border-bottom: 2px solid grey;
+    display: flex;
+}
+
+.commands__ul .command__title {
+    background-color: #32343a;
+    color: #b5bac1;
+    font-weight: 500;
+    width: 100px;
+    padding: 10px;
+}
+
+.commands__ul .calls__value {
+    padding: 10px;
+    background-color: #32343a;
+    color: #b5bac1;
+    font-weight: 700;
+    margin-left: 3px;
+    width: auto;
+    min-width: 30px;
+}

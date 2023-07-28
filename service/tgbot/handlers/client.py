@@ -6,7 +6,7 @@ import asyncio
 from aiogram import types, Dispatcher
 from asgiref.sync import sync_to_async
 
-from bot_messages.models import Command
+from bot_messages.models import Command, CommandLog
 from tgbot.config import OPEN_WEATHERMAP_TOKEN, NY_TIMES_API_TOKEN
 from tgbot.keyboards.reply_keyboards import get_default_keyboard
 from tgbot.database.sqlite import save_bot_message_db
@@ -38,6 +38,8 @@ async def cmd_start(message: types.Message):
     )
     # Сохраняем сообщение бота в базе данных
     await save_bot_message_db(answer)
+    # Прибавляем к счетчику вызова функции в логах
+    await CommandLog.log_command_call('/start')
     return answer
 
 
@@ -66,7 +68,7 @@ async def cmd_help(message: types.Message):
         В ответе используется HTML-разметка для выделения заголовка жирным шрифтом.
     """
     # Берем текст команды из базы данных
-    command_text = await Command.get_command_text('/start')
+    command_text = await Command.get_command_text('/help')
     answer = await message.answer(
         command_text,
         parse_mode='HTML',
@@ -74,6 +76,8 @@ async def cmd_help(message: types.Message):
     )
     # Сохраняем сообщение бота в базе данных
     await save_bot_message_db(answer)
+    # Прибавляем к счетчику вызова функции в логах
+    await CommandLog.log_command_call('/help')
     return answer
 
 
@@ -109,6 +113,8 @@ async def cmd_weather(message: types.Message):
         проверить название города (допускается только английский язык для названия города).
     """
     requested_city = message.text.replace('/weather', '')
+    # Прибавляем к счетчику вызова функции в логах
+    await CommandLog.log_command_call('/weather')
     try:
         r = requests.get(
             f"http://api.openweathermap.org/data/2.5/weather?q={requested_city}&appid={OPEN_WEATHERMAP_TOKEN}&units=metric"
@@ -167,6 +173,8 @@ async def cmd_news(message: types.Message):
         Если произойдет ошибка при получении новостей, бот отправит сообщение "Упс, что-то пошло не так."
         В ответе используется HTML-разметка для выделения заголовка жирным шрифтом.
     """
+    # Прибавляем к счетчику вызова функции в логах
+    await CommandLog.log_command_call('/news')
     try:
         r = requests.get(
             f'https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json?api-key={NY_TIMES_API_TOKEN}'

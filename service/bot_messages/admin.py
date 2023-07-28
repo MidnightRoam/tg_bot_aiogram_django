@@ -2,7 +2,8 @@ from django.contrib import admin
 
 from .models import (
     Message,
-    Command
+    Command,
+    CommandLog
 )
 
 
@@ -26,3 +27,8 @@ class MessageAdmin(admin.ModelAdmin):
 @admin.register(Command)
 class CommandAdmin(admin.ModelAdmin):
     list_display = ('id', 'command', )
+
+
+@admin.register(CommandLog)
+class CommandLogAdmin(admin.ModelAdmin):
+    list_display = ('id', 'command', 'calls_count')

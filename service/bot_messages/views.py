@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
 
-from .models import Message
+from .models import Message, CommandLog
 
 
 class MessageListView(ListView):
@@ -24,12 +24,12 @@ class MessageListView(ListView):
         """
         Возвращает QuerySet с сообщениями, отсортированными по дате.
         """
-        username_sort = self.request.GET.get('username')
-        group_sort = self.request.GET.get('group')
-        if username_sort:
-            return Message.objects.filter('to_whom').order_by('-date')
-        if group_sort:
-            return Message.objects.filter('to_whom').order_by('-date')
+        # username_sort = self.request.GET.get('username')
+        # group_sort = self.request.GET.get('group')
+        # if username_sort:
+        #     return Message.objects.filter('to_whom').order_by('-date')
+        # if group_sort:
+        #     return Message.objects.filter('to_whom').order_by('-date')
 
         return Message.objects.all().order_by('-date')
 
@@ -46,5 +46,6 @@ class MessageListView(ListView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Bot analytics"
         context["messages"] = self.get_queryset()
+        context["popular_commands"] = CommandLog.objects.all().order_by("-calls_count")
         return context
 
