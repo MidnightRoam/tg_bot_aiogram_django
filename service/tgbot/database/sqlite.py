@@ -10,7 +10,8 @@ async def db_start():
     """
     global db, cur
 
-    db_filename = "service/db.sqlite3"
+    service_folder = os.path.dirname(os.path.dirname(os.path.abspath('service')))
+    db_filename = os.path.join(service_folder, "db.sqlite3")
     if os.path.exists(db_filename):
         db = await aiosqlite.connect(db_filename)
         cur = await db.cursor()

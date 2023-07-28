@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="{% static 'css/include/sidebar.css' %}">
 {% endblock %}
 
+{% block title %} {{ title }} {% endblock %}
+
 {% block content %}
 <div class="container">
     {% include 'include/sidebar.html' %}
@@ -13,10 +15,22 @@
     {% include 'include/dashboard-controls.html' %}
         <section class="articles">
             <article class="article__default bot__messages">
-                <h1>Последние сообщения бота</h1>
+<!--                {% include 'include/filtering_form.html' %}-->
+                <h1 class="title">Последние сообщения бота ({{ messages|length }})</h1>
+                <ul class="messages__ul">
+                    {% for message in messages %}
+                    <ul class="message__ul">
+                        <li class="message_li">ID: {{ message.id }}</li>
+                        <li class="message_li">Message ID: {{ message.message_id }}</li>
+                        <li class="message_li">Дата сохранения: {{ message.date }}</li>
+                        <li class="message_li">Кому: {{ message.to_whom }}</li>
+                    </ul>
+                    {% endfor %}
+                </ul>
             </article>
             <article class="article__default popular__commands">
-                <h1>Самые популярные команды</h1>
+                <h1 class="title">Самые популярные команды</h1>
+                <p class="text__content"></p>
             </article>
         </section>
     </section>

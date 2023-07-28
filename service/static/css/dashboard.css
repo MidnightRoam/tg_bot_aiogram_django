@@ -1,7 +1,21 @@
 .dashboard {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 50px;
+}
+
+.auth .user-profile__link {
+    font-weight: 600;
+    background-color: #2b2d31;
+    padding: 20px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.auth .user-profile__link:hover {
+    color: #2b2d31;
+    background-color: #b5bac1;
 }
 
 .dashboard .statistic {
@@ -44,8 +58,25 @@
 .content .article__default {
     background-color: #b5bac1;
     width: 40%;
-    height: 200px;
+    height: 500px;
+    overflow: auto;
     justify-self: left;
     align-self: center;
     margin: 5px;
+}
+
+.content .article__default .title {
+    color: #32343a;
+    padding: 15px;
+}
+
+.content .article__default .messages__ul {
+    border-top: 2px solid #32343a;
+    padding: 15px;
+    list-style-type: none;
+}
+.messages__ul .message__ul {
+    padding: 10px;
+    list-style-type: none;
+    border-bottom: 2px solid grey;
 }

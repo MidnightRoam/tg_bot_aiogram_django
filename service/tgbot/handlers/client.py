@@ -4,9 +4,9 @@ from random import randrange
 import requests
 from aiogram import types, Dispatcher
 
-from tgbot.config import OPEN_WEATHERMAP_TOKEN, NY_TIMES_API_TOKEN
-from tgbot.keyboards.reply_keyboards import get_default_keyboard
-from tgbot.database.sqlite import get_bot_messages_db, save_bot_message_db
+from service.tgbot.config import OPEN_WEATHERMAP_TOKEN, NY_TIMES_API_TOKEN
+from service.tgbot.keyboards.reply_keyboards import get_default_keyboard
+from service.tgbot.database.sqlite import save_bot_message_db
 
 HELP_COMMANDS = """
 <strong>Поддерживаемые команды</strong>:

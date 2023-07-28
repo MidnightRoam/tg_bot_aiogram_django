@@ -1,8 +1,8 @@
 from aiogram import executor
 
-from tgbot.config import dp
-from tgbot.handlers import client
-from tgbot.database.sqlite import db_start
+from service.tgbot.config import dp
+from service.tgbot.handlers import client
+from service.tgbot.database.sqlite import db_start
 
 client.register_handlers_client(dp)
 

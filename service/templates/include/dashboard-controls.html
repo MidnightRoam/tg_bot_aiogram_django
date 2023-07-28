@@ -3,4 +3,14 @@
         <a href="{% url 'messages-list' %}" class="link">Bot messages</a>
         <a href="#" class="link">Popular commands</a>
     </section>
+    {% if user.is_authenticated %}
+    <section class="auth">
+        <a href="#" class="user-profile__link">{{ user }}</a>
+        <a href="#" class="user-profile__link">Logout</a>
+    </section>
+    {% else %}
+    <section class="auth">
+        <a href="#" class="user-profile__link">Login</a>
+    </section>
+    {% endif %}
 </div>

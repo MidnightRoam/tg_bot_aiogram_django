@@ -1,0 +1,13 @@
+<form action="" id="filtering-form" method="get" name="filter">
+    <select class="select__main select" name="order_by">
+        <option value="username">Сортировка по пользователю</option>
+        <option value="group">Сортировка по группе</option>
+    </select>
+    <select>
+        <option value="username">Сортировка по пользователю</option>
+        {% for username in messages.to_whom %}
+            <option value="">{{ username }}</option>
+        {% endfor %}}
+    </select>
+    <button class="btn-primary" type="submit">Сортировать</button>
+</form>
