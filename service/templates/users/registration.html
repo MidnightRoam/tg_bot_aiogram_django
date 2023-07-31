@@ -20,10 +20,12 @@
             <div class="card__controls">
                 <form class="form__control" action="{% url 'registration' %}" method="post">
                     {% csrf_token %}
-    <!--                {{ form }}-->
-                    <input type="" id="email" class="auth__input" placeholder="Username">
-                    <input type="" id="password1" class="auth__input" placeholder="Password">
-                    <input type="" id="password2" class="auth__input" placeholder="Repeat password">
+                    {% for f in form %}
+                    <div class="box">
+                        <label for="{{ f.id_for_label }}" class="form__label">{{ f.label }}</label>{{ f }}
+                        <div class="form__error">{{ f.errors }}</div>
+                    </div>
+                    {% endfor %}
                     <button class="btn btn__auth" type="submit">SIGN IN</button>
                 </form>
             </div>

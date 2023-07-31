@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/include/sidebar.css' %}">
+{% endblock %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+<div class="container">
+    {% include 'include/sidebar.html' %}
+    <section class="content">
+    {% include 'include/dashboard-controls.html' %}
+        <section class="articles">
+            <article class="article__default command_detail__article">
+                <div class="head">
+                    <h1 class="title">{{ command }}</h1>
+                    {% if perms.bot_messages.can_change_command %}
+                    <a href="{% url 'command-update' command.pk %}" class="title">Изменить команду</a>
+                    {% endif %}
+                </div>
+                <div class="content">
+                    <h1 class="title__sub"></h1>
+                    <h1 class="text">{{ command.text }}</h1>
+                </div>
+            </article>
+        </section>
+    </section>
+</div>
+{% endblock %}

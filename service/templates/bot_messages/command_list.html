@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/include/sidebar.css' %}">
+{% endblock %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+<div class="container">
+    {% include 'include/sidebar.html' %}
+    <section class="content">
+    {% include 'include/dashboard-controls.html' %}
+        <section class="articles">
+            <article class="article__default popular__commands">
+                <h1 class="title">Список доступных команд</h1>
+                <ul class="commands__ul">
+                    {% for command in commands %}
+                    <ul class="command__ul">
+                        <a class="command_li command__title command__link" href="{{ command.get_absolute_url }}">{{ command.command }}</a>
+                    </ul>
+                    {% endfor %}
+                </ul>
+            </article>
+        </section>
+    </section>
+</div>
+{% endblock %}

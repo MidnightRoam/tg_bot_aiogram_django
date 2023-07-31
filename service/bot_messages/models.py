@@ -1,5 +1,6 @@
 from asgiref.sync import sync_to_async
 from django.db import models
+from django.urls import reverse
 
 
 class Message(models.Model):
@@ -52,6 +53,9 @@ class Command(models.Model):
 
     def __str__(self):
         return self.command
+
+    def get_absolute_url(self):
+        return reverse('command-detail', kwargs={'pk': self.pk})
 
 
 class CommandLog(models.Model):

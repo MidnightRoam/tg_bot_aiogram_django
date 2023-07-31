@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/include/sidebar.css' %}">
+{% endblock %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+<div class="container">
+    {% include 'include/sidebar.html' %}
+    <section class="content">
+    {% include 'include/dashboard-controls.html' %}
+        <section class="articles">
+            <article class="article__default command_detail__article">
+                <div class="head">
+                    <h1 class="title">{{ command }}</h1>
+                </div>
+                <form class="command_update__fields" method="POST" action="update">
+                    {% csrf_token %}
+                    {% for f in form %}
+                    <label for="{{ f.id_for_label }}" class="form__label">{{ f.label }}</label>{{ f }}
+                    <div class="form__error">{{ f.errors }}</div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn__primary">Сохранить</button>
+                </form>
+            </article>
+        </section>
+    </section>
+</div>
+{% endblock %}

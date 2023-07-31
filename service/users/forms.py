@@ -1,5 +1,6 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django import forms
+from django.contrib.auth.models import User
 
 
 class UserLoginForm(AuthenticationForm):
@@ -53,6 +54,56 @@ class UserLoginForm(AuthenticationForm):
         Аргументы:
             *args: Позиционные аргументы для передачи в конструктор родительского класса.
             **kwargs: Именованные аргументы для передачи в конструктор родительского класса.
+        """
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'auth__input'
+
+
+class UserCreateForm(UserCreationForm):
+    """
+    Форма для создания нового пользователя.
+
+    Атрибуты:
+        - username (forms.CharField): Поле для ввода имени пользователя (логина).
+        - password1 (forms.CharField): Поле для ввода пароля.
+        - password2 (forms.CharField): Поле для повторного ввода пароля (для подтверждения).
+        - Meta (class): Вложенный класс для указания модели и полей, используемых в форме.
+
+    Методы:
+        __init__(self, *args, **kwargs):
+            Конструктор класса, выполняющий инициализацию формы.
+            Применяет стилизацию к видимым полям формы.
+    """
+    username = forms.CharField(
+        max_length=250,
+        widget=forms.TextInput(),
+        label='Username'
+    )
+
+    password1 = forms.CharField(
+        max_length=50,
+        widget=forms.PasswordInput(),
+        label='Password'
+    )
+
+    password2 = forms.CharField(
+        max_length=50,
+        widget=forms.PasswordInput(),
+        label='Repeat password'
+    )
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ('username', 'password1', 'password2')
+
+    def __init__(self, *args, **kwargs):
+        """
+        Конструктор класса, выполняющий инициализацию формы.
+        Применяет стилизацию к видимым полям формы.
+
+        :param *args: Аргументы.
+        :param **kwargs: Ключевые аргументы.
         """
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():

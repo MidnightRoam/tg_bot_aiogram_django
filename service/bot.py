@@ -13,7 +13,25 @@ from tgbot.database.sqlite import db_start
 client.register_handlers_client(dp)
 
 
-async def on_startup(_):
+async def on_startup(_) -> None:
+    """
+    Асинхронная функция, которая выполняется при запуске бота.
+
+    Параметры:
+        _: Игнорируемый параметр. Может быть использован для передачи контекста,
+           но в данной функции не используется.
+
+    Возвращаемое значение:
+        None
+
+    Действия:
+        Выполняет инициализацию базы данных (db_start).
+        Выводит сообщение "Bot is started successfully" в консоль.
+
+    Примечание:
+        Эта функция предполагает использование в качестве обработчика события on_startup
+        при запуске Telegram-бота.
+    """
     await db_start()
     print('Bot is started successfully')
 

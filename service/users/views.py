@@ -1,14 +1,14 @@
 from typing import Dict
 
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import CreateView
 
-from .forms import UserLoginForm
+from .forms import UserLoginForm, UserCreateForm
 
 
 class UserLoginView(LoginView):
@@ -59,8 +59,42 @@ class UserLoginView(LoginView):
         return reverse_lazy('messages-list')
 
 
-class RegistrationTemplateView(TemplateView):
+class UserCreateView(CreateView):
+    """
+    Представление для создания нового пользователя.
+
+    Атрибуты:
+        template_name (str): Строка, содержащая имя шаблона HTML для отображения представления.
+        form_class (Form): Класс формы, используемой для создания нового пользователя.
+        success_url (str): Строка с URL-адресом, на который будет перенаправлен пользователь
+                           после успешного создания нового аккаунта.
+
+    Методы:
+        get_context_data(self, **kwargs):
+            Возвращает контекстные данные для шаблона HTML, которые позволяют добавить
+            дополнительные переменные в шаблон перед его рендерингом. В данном случае, добавляется
+            переменная 'title' со значением 'Sign Up'.
+
+        form_valid(self, form):
+            Вызывается при успешной проверке и сохранении формы. Создает нового пользователя
+            на основе данных из формы, выполняет вход в систему от имени этого пользователя и
+            перенаправляет на страницу 'messages-list'.
+    """
     template_name = 'users/registration.html'
+    form_class = UserCreateForm
+    success_url = reverse_lazy('messages-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context.update({
+            'title': 'Sign Up'
+        })
+        return context
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('messages-list')
 
 
 class UserLogoutView(View):

@@ -28,6 +28,7 @@
                     {% endfor %}
                 </ul>
             </article>
+            {% if perms.bot_messages.can_change_command %}
             <article class="article__default popular__commands">
                 <h1 class="title">Самые популярные команды</h1>
                 <ul class="commands__ul">
@@ -39,6 +40,7 @@
                     {% endfor %}
                 </ul>
             </article>
+            {% endif %}
         </section>
     </section>
 </div>
