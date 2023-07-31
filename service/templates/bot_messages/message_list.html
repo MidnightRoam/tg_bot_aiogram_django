@@ -17,15 +17,8 @@
             <article class="article__default bot__messages">
 <!--                {% include 'include/filtering_form.html' %}-->
                 <h1 class="title">Последние сообщения бота ({{ messages|length }})</h1>
-                <ul class="messages__ul">
-                    {% for message in messages %}
-                    <ul class="message__ul">
-                        <li class="message_li">ID: {{ message.id }}</li>
-                        <li class="message_li">Message ID: {{ message.message_id }}</li>
-                        <li class="message_li">Дата сохранения: {{ message.date }}</li>
-                        <li class="message_li">Кому: {{ message.to_whom }}</li>
-                    </ul>
-                    {% endfor %}
+                <ul class="messages__ul" id="messages__ul">
+
                 </ul>
             </article>
             {% if perms.bot_messages.can_change_command %}
@@ -44,4 +37,7 @@
         </section>
     </section>
 </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/get_messages_list.js' %}"></script>
 {% endblock %}

@@ -1,4 +1,6 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.views import View
 from django.views.generic import ListView, DetailView, UpdateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
@@ -50,6 +52,32 @@ class MessageListView(ListView):
         context["title"] = "Bot analytics"
         context["popular_commands"] = CommandLog.objects.select_related('command').order_by("-calls_count")
         return context
+
+
+class JsonMessageView(View):
+    """
+    Класс JsonMessageView представляет представление, возвращающее данные сообщений в формате JSON.
+
+    Методы:
+        get(self, request, *args, **kwargs):
+            Обрабатывает GET-запрос и возвращает список всех сообщений в формате JSON.
+
+    """
+    def get(self, request, *args, **kwargs):
+        """
+        Обрабатывает GET-запрос и возвращает список всех сообщений в формате JSON.
+
+        Аргументы:
+            request (HttpRequest): HTTP-запрос, отправленный клиентом.
+            *args: Дополнительные позиционные аргументы.
+            **kwargs: Дополнительные именованные аргументы.
+
+        Возвращает:
+            JsonResponse: Ответ с данными сообщений в формате JSON.
+
+        """
+        messages = Message.objects.select_related('command').order_by('-date').values()
+        return JsonResponse(list(messages), safe=False)
 
 
 class CommandListView(ListView):
