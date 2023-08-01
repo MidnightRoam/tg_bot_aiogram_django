@@ -49,7 +49,32 @@ async def save_bot_message_db(message: Dict[str, any]) -> None:
     :return: None
     """
     global db, cur
+
+    message_text = message['text']
+    message_date = message['date']
+    message_id = message['message_id']
+    message_username = message['chat']['username']
+
     await cur.execute('INSERT INTO bot_messages_message (text, date, message_id, to_whom) VALUES(?, ?, ?, ?)',
-                      (message['text'], message['date'], message['message_id'], message['chat']['username'])
+                      (message_text, message_date, message_id, message_username)
                       )
+
+    await db.commit()
+
+
+async def save_chatroom_message_db(message: Dict[str, any]) -> None:
+    """
+    Сохраняет айди чат комнаты, куда было отправлено сообщение бота.
+
+    :param message: Словарь с информацией о сообщении, которое нужно сохранить. Словарь должен содержать ключи:
+                    'chat_id' (айди чат комнаты, куда было отправлено сообщение бота).
+    :type message: dict
+
+    :return: None
+    """
+    global db, cur
+
+    chat_id = message['chat']['id']
+
+    await cur.execute('INSERT OR IGNORE INTO bot_messages_chatroom (chat_id) VALUES(?)', (chat_id,))
     await db.commit()

@@ -18,7 +18,7 @@ class CommandForm(forms.ModelForm):
     """
     class Meta:
         model = Command
-        fields = ('command', 'text')
+        fields = ('text', )
 
     def __init__(self, *args, **kwargs) -> None:
         """

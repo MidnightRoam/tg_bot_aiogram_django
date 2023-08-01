@@ -3,7 +3,8 @@ from django.contrib import admin
 from .models import (
     Message,
     Command,
-    CommandLog
+    CommandLog,
+    Chatroom
 )
 
 
@@ -45,3 +46,15 @@ class CommandLogAdmin(admin.ModelAdmin):
 
     """
     list_display = ('id', 'command', 'calls_count', )
+
+
+@admin.register(Chatroom)
+class ChatroomAdmin(admin.ModelAdmin):
+    """
+    Класс для настройки административного Django интерфейса модели Chatroom.
+
+    Атрибуты:
+        - list_display (tuple): Кортеж с полями, которые будут отображаться в списке записей.
+
+    """
+    list_display = ('id', 'chat_id', )

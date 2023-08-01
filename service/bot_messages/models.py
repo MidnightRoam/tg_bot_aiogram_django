@@ -21,6 +21,7 @@ class Message(models.Model):
     message_id = models.PositiveIntegerField(null=True, blank=True)
     to_whom = models.CharField(max_length=250, null=True, blank=True)
     command = models.ForeignKey('Command', on_delete=models.CASCADE, null=True, blank=True)
+    chat = models.ForeignKey('Chatroom', on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Command(models.Model):
@@ -94,3 +95,23 @@ class CommandLog(models.Model):
             command_log.save()
         except Command.DoesNotExist:
             pass
+
+
+class Chatroom(models.Model):
+    """
+    Модель для представления чат-комнаты.
+
+    Атрибуты:
+        chat_id (str): Идентификатор чат-комнаты.
+            Максимальная длина - 255 символов.
+            Уникален для каждой записи в базе данных.
+            Не редактируется (editable=False).
+
+    Методы:
+        __str__: Возвращает строковое представление объекта чат-комнаты (по умолчанию использует chat_id).
+
+    """
+    chat_id = models.CharField(max_length=255, unique=True, editable=False)
+
+    def __str__(self):
+        return self.chat_id

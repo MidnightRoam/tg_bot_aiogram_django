@@ -9,7 +9,7 @@ from asgiref.sync import sync_to_async
 from bot_messages.models import Command, CommandLog
 from tgbot.config import OPEN_WEATHERMAP_TOKEN, NY_TIMES_API_TOKEN
 from tgbot.keyboards.reply_keyboards import get_default_keyboard
-from tgbot.database.sqlite import save_bot_message_db
+from tgbot.database.sqlite import save_bot_message_db, save_chatroom_message_db
 
 
 async def cmd_start(message: types.Message):
@@ -38,6 +38,8 @@ async def cmd_start(message: types.Message):
     )
     # Сохраняем сообщение бота в базе данных
     await save_bot_message_db(answer)
+    # Сохраняем чат айди, куда было отправлено сообщение
+    await save_chatroom_message_db(answer)
     # Прибавляем к счетчику вызова функции в логах
     await CommandLog.log_command_call('/start')
     return answer
@@ -76,6 +78,8 @@ async def cmd_help(message: types.Message):
     )
     # Сохраняем сообщение бота в базе данных
     await save_bot_message_db(answer)
+    # Сохраняем чат айди, куда было отправлено сообщение
+    await save_chatroom_message_db(answer)
     # Прибавляем к счетчику вызова функции в логах
     await CommandLog.log_command_call('/help')
     return answer
@@ -138,7 +142,10 @@ async def cmd_weather(message: types.Message):
                                      f"Продолжительность дня: {length_of_the_day}\n",
                                      reply_markup=get_default_keyboard()
                                      )
+        # Сохраняем сообщение бота в базе данных
         await save_bot_message_db(answer)
+        # Сохраняем чат айди, куда было отправлено сообщение
+        await save_chatroom_message_db(answer)
         return answer
     except:
         await message.reply(
@@ -192,7 +199,10 @@ async def cmd_news(message: types.Message):
                                      f"<strong>{title}</strong>\n"
                                      f"{abstract}",
                                      parse_mode='HTML')
+        # Сохраняем сообщение бота в базе данных
         await save_bot_message_db(answer)
+        # Сохраняем чат айди, куда было отправлено сообщение
+        await save_chatroom_message_db(answer)
         return answer
     except:
         await message.reply(

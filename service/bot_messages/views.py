@@ -25,19 +25,6 @@ class MessageListView(ListView):
     model = Message
     context_object_name = 'messages'
 
-    def get_queryset(self):
-        """
-        Возвращает QuerySet с сообщениями, отсортированными по дате.
-        """
-        # username_sort = self.request.GET.get('username')
-        # group_sort = self.request.GET.get('group')
-        # if username_sort:
-        #     return Message.objects.filter('to_whom').order_by('-date')
-        # if group_sort:
-        #     return Message.objects.filter('to_whom').order_by('-date')
-
-        return Message.objects.select_related('command').order_by('-date')
-
     def get_context_data(self, **kwargs):
         """
         Возвращает контекст данных для отображения списка сообщений.
